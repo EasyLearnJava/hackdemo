@@ -44,8 +44,7 @@ public class GreetingController {
         		recList.add(obj.getId());
         		rectempList.add(obj);
         	}
-        }
-        
+        }        
         return rectempList;        
     }
 
@@ -53,6 +52,16 @@ public class GreetingController {
     public Greeting greetingWithJavaconfig(@RequestParam(required=false, defaultValue="World") String name) {
         System.out.println("==== in greeting ====");
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
+    }
+    
+    private HttpHeaders createHttpHeaders()
+    {
+        //String notEncoded = user + ":" + password;
+        String encodedAuth = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOiJST0xFX0FETUlOLFJPTEVfVVNFUiIsImV4cCI6MTUyNjg3MTkyM30.rHUT76xMf1rzWoUHVVE8SFeeDXfZ807ihu4mCi93vBOfP8OBnA1VmXXMLDew25CG18qwDrn5TW0yq5i3lj9DSA";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.add("Authorization", encodedAuth);
+        return headers;
     }
 
 }
