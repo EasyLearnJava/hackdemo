@@ -3,13 +3,41 @@
     <head>
         <title>Hello CORS</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="hello.js"></script>
+        <script>
+        $( document ).ready(function() {
+            
+        	 setInterval(sendRequest, 10000);
+        });
+        
+		function sendRequest(){
+					var result;
+        	      $.ajax({
+        	        url: "https://aacustomerreview.herokuapp.com/greeting",
+        	        success: 
+        	          function(data){
+        	            //insert text of test.php into your div  
+        	            var data_length = data.length;
+        	            
+        	            $.each(
+        	            	    data ,
+        	            	    function(i,v) {
+        	            	    	result = data[i]["employeeId"] + " " + data[i]["comments"];
+        	            	    	 $('<li />', {html: result}).appendTo('ul.justList')
+        	            	    }
+        	            	) ;
+        	        },
+        	        complete: function() {
+        	       
+        	     }
+        	    });
+        	  }
+			  
+        </script>
     </head>
 
     <body>
         <div>
-            <p class="greeting-id">The ID is </p>
-            <p class="greeting-content">The content is </p>
+			<ul class="justList"></ul>
         </div>
     </body>
 </html>
